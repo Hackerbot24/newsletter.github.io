@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <title>Stay Updated Newsletter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF6257;
+            --secondary-color: #242742;
+            --background-color: #36384D;
+            --text-color: #242742;
+            --success-color: #38CB89;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column-reverse;
+            position: relative;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h1 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 30px;
+        }
+
+        li {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        li::before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(36, 39, 66, 0.2);
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover, button:focus {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .error {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .success-icon::after {
+            content: "✓";
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .image-container {
+            background-image: url('https://picsum.photos/800/600?random=1');
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+
+            .content {
+                width: 60%;
+            }
+
+            .image-container {
+                width: 40%;
+                min-height: auto;
+            }
+        }
+
+        .attribution {
+            font-size: 11px;
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .attribution a {
+            color: #FF6257;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .attribution a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        @media (max-height: 700px) {
+            .attribution {
+                position: static;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Stay updated!</h1>
+            <p>Join 60,000+ product managers receiving monthly updates on:</p>
+            <ul>
+                <li>Product discovery and building what matters</li>
+                <li>Measuring to ensure updates are a success</li>
+                <li>And much more!</li>
+            </ul>
+            <form id="newsletter-form">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="email@company.com" required>
+                <div class="error" id="email-error">Please enter a valid email address</div>
+                <button type="submit">Subscribe to monthly newsletter</button>
+            </form>
+        </div>
+        <div class="image-container"></div>
+        <div class="success-message" id="success-message">
+            <div class="success-icon"></div>
+            <h2>Thanks for subscribing!</h2>
+            <p>A confirmation email has been sent to <span id="submitted-email"></span>. Please open it and click the button inside to confirm your subscription.</p>
+            <button id="dismiss-btn">Dismiss message</button>
+        </div>
+    </div>
+
+    <div class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+        Coded by <a href="https://github.com/Hackerbot24">Hackerbot24</a>.
+    </div>
+
+    <script>
+        const form = document.getElementById('newsletter-form');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const successMessage = document.getElementById('success-message');
+        const submittedEmail = document.getElementById('submitted-email');
+        const dismissBtn = document.getElementById('dismiss-btn');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateEmail(emailInput.value)) {
+                showSuccessMessage();
+            } else {
+                showError();
+            }
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailError.style.display = 'none';
+        });
+
+        dismissBtn.addEventListener('click', () => {
+            hideSuccessMessage();
+            form.reset();
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function showError() {
+            emailError.style.display = 'block';
+            emailInput.focus();
+        }
+
+        function showSuccessMessage() {
+            submittedEmail.textContent = emailInput.value;
+            successMessage.classList.add('show');
+        }
+
+        function hideSuccessMessage() {
+            successMessage.classList.remove('show');
+        }
+    </script>
+</body>
+</html>
